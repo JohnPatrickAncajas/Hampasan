@@ -64,7 +64,7 @@ function display_items() {
 
 //------------USER LIST------------------------
 const userlist = [
-    new User("Rin", 1000, 1, weaponlist[0], defaultpng("sword"))
+    new User("Rin", 1000, 1, weaponlist[0], defaultpng("sword.png"))
 ]
 
 //------------------- MOB LIST ------------------------
@@ -85,19 +85,19 @@ const mobs = [
 //--------------PNG HANDLER-------------------
 function defaultpng(weaponstype) {
     if (weaponstype == "sword") {
-        return "DefaultSword"
+        return "DefaultSword.png"
     }
-    if (weaponstype == "bow") {
-        return "DefaultBow"
+    if (weaponstype == "bow.png") {
+        return "DefaultBow.png"
     }
     if (weaponstype == "spear") {
-        return "DefaultSpear"
+        return "DefaultSpear.png"
     }
     if (weaponstype == "orb") {
-        return "DefaultOrb"
+        return "DefaultOrb.png"
     }
-    if (weaponstype == "knuckles") {
-        return "DefaultKnuckles"
+    if (weaponstype == "Scythe") {
+        return "DefaultScythe.png"
     }
 }
 //-----------------------WEAPON GACHA------------------------------
@@ -192,12 +192,101 @@ function equip(user, weapon) {
     alert(`You have equipped ${weapon.name}!`);
 }
 
-//------------------------------------------------------
+//------------------------------------------------------------------//
 //---------------------------- FIGHT SECTION -----------------------//
+//patanggal nlng ng start button after maclick
+function startbattle(){
+    usercurrent = userlist[0]
+    mobcurrent = randomMob()
+    display_user(usercurrent)
+    display_mob(mobcurrent)
+    battle(usercurrent,mobcurrent)
+}
 function getuser2(){
     const username = document.getElementById('username2').value;
-    targ = locate(username)
+    currentuser = locate(username)
+    return currentuser
+    
 }
+
+function randomMob(){
+    const result = Math.floor(Math.random() * mobs.length);
+    return mobs[result]
+}
+
+function display_user(user){
+    const playerbox = document.getElementById('fightBox_player')
+
+    const playerimage = document.createElement('img')
+    playerimage.src = user.defaultpng
+    playerimage.alt = user.name
+    playerbox.appendChild(playerimage)
+}
+
+function display_mob(mob){
+    const mobbox = document.getElementById('fightBox_mob')
+
+    const mobimage = document.createElement('img')
+    mob.src = "temp.png"
+    mob.alt = Mob
+    mobbox.appendChild(mobimage)
+}
+
+function battle(user,mob){
+    //-----------COPY LANG NG USER AT MOBS ANG PAGLALABANIN---------------//
+    var userhp = user.hp
+    var mobhp = mob.hp
+    const playerbox = document.getElementById('fightBox_player')
+    const playerhp = document.createElement('h1')
+    playerhp.innerHTML = `${user.name}: ${userhp}`
+    playerbox.appendChild(playerhp)
+
+    const mobbox = document.getElementById('fightBox_mob')
+    const mobhp = document.createElement('h1')
+    mobhp.innerHTML = `${mob.name}: ${mobhp}`
+    mobbox.appendChild(mobhp)
+    
+    while(userhp != 0 && mob !=0){
+        mobhp = playermove(user)
+        userhp = mobmove(mob)
+    }
+
+}
+
+function calculatedmg(user,move){
+    return user.hp -= move.damage
+}
+
+function playermove(user){
+    const move1 = user.equipped.moveset[0].damage
+    const move2 = user.equipped.moveset[1].damage
+    const move3 = user.equipped.moveset[2].damage
+
+    const movepanel = document.getElementById("fightBox_player")
+
+    const button1 = document.createElement('button')
+    button1.innerHTML`${user.equipped.moveset[0].name}`
+    const button2 = document.createElement('button')
+    button2.innerHTML`${user.equipped.moveset[1].name}`
+    const button3 = document.createElement('button')
+    button3.innerHTML`${user.equipped.moveset[2].name}`
+
+    button1.onclick = calculatedmg(user,move1)
+
+    button2.onclick = calculatedmg(user,move2) 
+    button3.onclick = calculatedmg(user,move3) 
+
+}
+
+function mobmove(mob){
+
+}
+
+
+
+
+
+
 
 
 function swapPage(page) {
@@ -212,14 +301,15 @@ function swapPage(page) {
         
     } else if (page === 'fight') {
         pageDisplay.innerHTML = `
-            <div class="fightingDiv">
-                <div class="fightBox">
+            <div class = "fighting_class">
+                <div class="fightBox_player">
                     <p>Character</p>
-                    <input type="text" id="username2" placeholder="Enter your name">
-                    <button onclick="getuser2()">Submit</button>
-                    
+                        
                 </div>
-                <div class="fightBox">
+                
+                <button onclick="startbattle()" styles="display:grid;place-items:center">START</button>
+
+                <div class="fightBox_mob">
                     <p>Hahampasin</p>
                 </div>
             </div>
