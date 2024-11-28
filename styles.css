@@ -5,6 +5,17 @@ body, html {
     background-color: #dedede;
 }
 
+#usernamePasswordBox {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 4rem;
+    width: auto;
+    height: auto;
+    background-color : #6585a7;
+    border: #333 solid 0.1rem;
+    border-radius: 0.5rem;
+}
+
 .inputBox {
     padding: 0.5rem 1rem;
     margin: 1rem 0rem;
@@ -15,6 +26,7 @@ body, html {
     height: auto;
     margin-top: 1rem;
     padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
 
 }
 

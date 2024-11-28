@@ -64,7 +64,8 @@ function display_items() {
 
 //------------USER LIST------------------------
 const userlist = [
-    new User("Rin", 1000, 1, weaponlist[0], defaultpng("sword"))
+    new User("Rin", 1000, 1, weaponlist[0], defaultpng("sword")),
+    new User("Pat", 1000, 1, weaponlist[0], defaultpng("sword"))
 ]
 
 //------------------- MOB LIST ------------------------
