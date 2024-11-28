@@ -152,13 +152,29 @@ function getuser(){
     menu(targ)
 }
 function menu(current_user){
+    const pageDisplay = document.getElementById('pageDisplay');
     const character = document.getElementById("equip")
-    const charname = document.createElement("h1")
-    charname.innerHTML = ` USER :${current_user.name}
-                           Weapon:${current_user.equipped.name}
-                           <img src ="temp.png" height="100px" width="100px">
-                           <button onclick="changeweapon()">CHANGE WEAPON</button>
-                           <div id="weaponry"></div>
+    pageDisplay.innerHTML = `
+                           <div id="characterInfo">
+                                <img id="characterImage" src ="temp.png">
+                                <p>Username: ${current_user.name}</p>
+                                <p>Weapon: ${current_user.equipped.name}</p>
+                                <button id="changeWeaponButton" onclick="changeweapon()">CHANGE WEAPONS</button>
+                           </div>
+                           <div id="weaponMovesInfo">
+                                <h2>${current_user.equipped.name} Moves</h2>
+                                <h3>Move 1</h3>
+                                <p>Lagay dito explanation tsaka damage ng move</p>
+                                <h3>Move 2</h3>
+                                <p>Lagay dito explanation tsaka damage ng move</p>
+                                <h3>Move 3</h3>
+                                <p>Lagay dito explanation tsaka damage ng move</p>
+                           </div>
+                           <div id="weaponryInfo">
+                                <div id="username">${current_user.name}'s Weapons</div>
+                                <hr>
+                                <div id="weaponry"></div>
+                           </div>
                            `
 
     character.appendChild(charname)
@@ -206,11 +222,13 @@ function swapPage(page) {
     if (page === 'menu') {
         pageDisplay.innerHTML = `
         <h1>Welcome to Hampasan!</h1>
-        <label for="username">Username: <input type="text" class="inputBox" id="username" placeholder="Enter your username: "></input></label>
-        <label for="password">Password: <input type="password" class="inputBox" id="password" placeholder="Enter your password: "></input></label>
-        <!-- Wala pa yung password functionality, nandiyan lang for design-->
-        <button id="submitButton" onclick="getuser()">Submit</button>
-
+        <div id="usernamePasswordBox">
+            <label for="username">Username: <input type="text" class="inputBox" id="username" placeholder="Enter your username: "></input></label>
+            <label for="password">Password: <input type="password" class="inputBox" id="password" placeholder="Enter your password: "></input></label>
+            <!-- Wala pa yung password functionality, nandiyan lang for design-->
+            <button id="submitButton" onclick="getuser()">Submit</button>
+        </div>
+    
         <div id = "equip"></div>
         `
         
