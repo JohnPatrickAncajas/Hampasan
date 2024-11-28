@@ -4,6 +4,20 @@ body, html {
     font-family: 'Press Start 2P', cursive;
     background-color: #dedede;
 }
+
+.inputBox {
+    padding: 0.5rem 1rem;
+    margin: 1rem 0rem;
+}
+
+#submitButton {
+    width: 20vw;
+    height: auto;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+
+}
+
 #pageDisplay {
     display: flex;
     flex-direction: column;

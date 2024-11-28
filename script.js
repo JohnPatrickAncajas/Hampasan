@@ -204,9 +204,12 @@ function swapPage(page) {
     const pageDisplay = document.getElementById('pageDisplay');
     if (page === 'menu') {
         pageDisplay.innerHTML = `
-        <input type="text" id="username" placeholder="Enter your name">
-        <button onclick="getuser()">Submit</button>
-        
+        <h1>Welcome to Hampasan!</h1>
+        <label for="username">Username: <input type="text" class="inputBox" id="username" placeholder="Enter your username: "></input></label>
+        <label for="password">Password: <input type="password" class="inputBox" id="password" placeholder="Enter your password: "></input></label>
+        <!-- Wala pa yung password functionality, nandiyan lang for design-->
+        <button id="submitButton" onclick="getuser()">Submit</button>
+
         <div id = "equip"></div>
         `
         
