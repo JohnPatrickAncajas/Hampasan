@@ -25,8 +25,6 @@ class Weapon {
         this.moveset = moveset;
         this.finaldmg =this.moveset.damage * this.refinement;
     }
-
-    
 }
 
 class Moves {
@@ -36,7 +34,6 @@ class Moves {
         this.sprite = png;
     }
 }
-
 //-------------------WEAPON LIST--------------------------------------------------------------
 const weaponlist = [
     new Weapon("sword", "Default Blade", true, [
@@ -50,18 +47,6 @@ const weaponlist = [
         new Moves("Equinox", 200, ".png")
     ])
 ];
-
-function display_items() {
-    const targetlist = document.getElementById("prizeBox");
-    targetlist.innerHTML = "";
-
-    for (let i = 0; i < weaponlist.length; i++) {
-        const weap = document.createElement('li');
-        weap.innerHTML = `${weaponlist[i].name} | ${weaponlist[i].type}`;
-        targetlist.appendChild(weap);
-    }
-}
-
 //------------USER LIST------------------------
 const userlist = [
     new User("Rin", 1000, 1, weaponlist[0], defaultpng("sword")),
@@ -101,6 +86,20 @@ function defaultpng(weaponstype) {
         return "DefaultKnuckles"
     }
 }
+////////////-------------...CURRENT USER////////------------
+CURRENT_USER = null
+function getuser(){
+const username = document.getElementById('username').value;
+   
+    CURRENT_USER = locate(username)
+        console.log("logged in")
+        menu(CURRENT_USER)
+}
+
+
+
+
+
 //-----------------------WEAPON GACHA------------------------------
 function gacha() {
     const result = Math.floor(Math.random() * weaponlist.length);
@@ -109,26 +108,21 @@ function gacha() {
 
     const prize = document.createElement("h1");
     prize.innerText = `You won ${weaponlist[result].name}`;
+    verify(weaponlist[result].name)
     resultdiv.appendChild(prize);
-
-//--------------------- refinement debug statement------------
-    const verifyMessage = verify(weaponlist[result].name);
-    const verifyMessageDiv = document.createElement("p");
-    verifyMessageDiv.innerText = verifyMessage;
-    resultdiv.appendChild(verifyMessageDiv);
-
 }
 
-//----------------LOCATOR-------------------
-function locate(username){
-    for(let i = 0; i < userlist.length ; i++){
-        if(userlist[i].name == username){
-            return userlist[i]
-        }
+function display_items() {
+    const CURRENT_USERetlist = document.getElementById("prizeBox");
+    CURRENT_USERetlist.innerHTML = "";
+
+    for (let i = 0; i < weaponlist.length; i++) {
+        const weap = document.createElement('li');
+        weap.innerHTML = `${weaponlist[i].name} | ${weaponlist[i].type}`;
+        CURRENT_USERetlist.appendChild(weap);
     }
-    return null;
 }
-//--------------------verify para sa refinement
+
 function verify(item_name) {
     for (let i = 0; i < weaponlist.length; i++) {
         if (weaponlist[i].name === item_name) {
@@ -144,14 +138,22 @@ function verify(item_name) {
     }
 }
 
+//----------------LOCATOR-------------------
+function locate(username){
+    for(let i = 0; i < userlist.length ; i++){
+        if(userlist[i].name == username){
+            return userlist[i]
+        }
+    }
+    return null;
+}
+//--------------------verify para sa refinement
+
+
 //------------------equip customization-----------
 
-function getuser(){
-    const username = document.getElementById('username').value;
-    targ = locate(username)
-    menu(targ)
-}
 function menu(current_user){
+    
     const pageDisplay = document.getElementById('pageDisplay');
     const character = document.getElementById("equip")
     pageDisplay.innerHTML = `
@@ -178,11 +180,13 @@ function menu(current_user){
                            `
 
     character.appendChild(charname)
+    const changeweaponbutton = document.getElementById("changeWeaponButton")
+    changeweaponbutton.addEventListener('click', function(){
+        changeweapon();
+    })
 }
 //----------------------Change weapon-------------------
 function changeweapon(){
-    const username = document.getElementById('username').value;
-    targ = locate(username)
     
     const weaponry = document.getElementById('weaponry')
     const buttons = document.createElement('div')
@@ -193,15 +197,18 @@ function changeweapon(){
             button.innerHTML = `Equip ${weaponlist[i].name}`;
            
             button.addEventListener('click', function() {
-                equip(targ, weaponlist[i]); 
+                equip(CURRENT_USER, weaponlist[i]); 
+                menu(CURRENT_USER)
             });
 
             buttons.appendChild(button);
         }
+        
     }
-
     weaponry.innerHTML = '';
     weaponry.appendChild(buttons);
+    //----debug----
+    console.log(CURRENT_USER.name)
 }
 
 function equip(user, weapon) {
@@ -211,11 +218,6 @@ function equip(user, weapon) {
 
 //------------------------------------------------------
 //---------------------------- FIGHT SECTION -----------------------//
-function getuser2(){
-    const username = document.getElementById('username2').value;
-    targ = locate(username)
-}
-
 
 function swapPage(page) {
     const pageDisplay = document.getElementById('pageDisplay');

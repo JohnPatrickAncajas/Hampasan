@@ -134,3 +134,6 @@ body, html {
     text-align: center;
     font-size: clamp(1rem, 2.5vw, 1.5rem);
 }
+.hidden {
+    display: none;
+}
