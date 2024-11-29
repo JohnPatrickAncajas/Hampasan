@@ -98,8 +98,6 @@ const username = document.getElementById('username').value;
 
 
 
-
-
 //-----------------------WEAPON GACHA------------------------------
 function gacha() {
     const result = Math.floor(Math.random() * weaponlist.length);
@@ -131,7 +129,7 @@ function verify(item_name) {
                 return "Weapon Unlocked";
             } else {
                 weaponlist[i].refinement += 0.2;
-                weaponlist[i].finaldmg = weaponlist[i].moveset.damage * weaponlist[i].refinement;
+                weaponlist[i].finaldmg = weaponlist[i].moveset[i].damage * weaponlist[i].refinement;
                 return "Weapon Refinement++";
             }
         }
@@ -180,8 +178,8 @@ function menu(current_user){
                            `
 
     character.appendChild(charname)
-    const changeweaponbutton = document.getElementById("changeWeaponButton")
-    changeweaponbutton.addEventListener('click', function(){
+    const changeweapon = document.getElementById('weaponry')
+    changeweapon.addEventListener('click', function(){
         changeweapon();
     })
 }
@@ -193,17 +191,16 @@ function changeweapon(){
     for (let i = 0; i < weaponlist.length; i++) {
         if (weaponlist[i].unlocked === true) {
           
-            const button = document.createElement('button');
-            button.innerHTML = `Equip ${weaponlist[i].name}`;
+            const button = document.createElement('button')
+            button.innerHTML = `Equip ${weaponlist[i].name}`
            
             button.addEventListener('click', function() {
                 equip(CURRENT_USER, weaponlist[i]); 
                 menu(CURRENT_USER)
             });
 
-            buttons.appendChild(button);
+            buttons.appendChild(button)
         }
-        
     }
     weaponry.innerHTML = '';
     weaponry.appendChild(buttons);
@@ -218,6 +215,12 @@ function equip(user, weapon) {
 
 //------------------------------------------------------
 //---------------------------- FIGHT SECTION -----------------------//
+function attack(user, mob, moveIndex) {
+    const move = user.equipped.moveset[moveIndex];
+    mob.hp -= move.damage;
+    console.log(`${user.name} used ${move.name}! Mob HP is now ${mob.hp}`);
+}
+
 
 function swapPage(page) {
     const pageDisplay = document.getElementById('pageDisplay');
