@@ -68,7 +68,16 @@ const movesetlist = [
         new Moveset("One Way to Find Out", 100, ".png", "A gamble with devastating potential, dealing <span style='color: red;'><b>100</b></span> damage"),
         new Moveset("Soul Harvest", 120, ".png", "Harvest the opponent's soul for damage, dealing <span style='color: red;'><b>120</b></span> damage"),
         new Moveset("Death", 200, ".png", "The ultimate scythe attack, dealing <span style='color: red;'><b>200</b></span> damage")
+    ],
+
+    [
+        new Moveset("Debug Slash", 999999, ".png", "A powerful debug move that deals an instant <span style='color: red;'><b>999999</b></span> damage to the opponent, ensuring a one-shot defeat."),
+        new Moveset("Debug Cleaver", 999999, ".png", "A massive cleaving attack that deals <span style='color: red;'><b>999999</b></span> damage, obliterating any enemy in a single strike."),
+        new Moveset("Ultimate Debug", 999999, ".png", "An overpowered debug move that instantly deals <span style='color: red;'><b>999999</b></span> damage, defeating any opponent with ease.")
+        
     ]
+
+
 ];
 
 
@@ -79,7 +88,9 @@ const weaponlist = [
     
     new Weapon("SWORD", "Dark Fang", false, movesetlist[1]),
 
-    new Weapon("SCYTHE", "Little Red's Scythe", false, movesetlist[2])
+    new Weapon("SCYTHE", "Little Red's Scythe", false, movesetlist[2]),
+
+    new Weapon("SWORD", "DEBUG BLADE", true, movesetlist[3])
     
 ]
 
@@ -121,10 +132,6 @@ let current_mob = null
 let origuserhp = 0
 let origmobhp = 0
 
-function saveoriginalhp(){
-    origuserhp = current_user.hp
-    origmobhp = current_mob.hp
-}
 
 function getcurrentuser(){
     console.log("function called")
@@ -216,7 +223,6 @@ function loadmenutools(){
     debugtool()
     menu()
     changeweapon()
-    saveoriginalhp()
 }
 function changeweapon(){
     console.log("weaponry function loaded ")
@@ -278,8 +284,12 @@ function menu(){
 // Gacha
 
 
-
 function gacha() {
+    const coins = document.getElementById("currency")
+    coins.innerHTML = " "
+    const balance = document.createElement('h2')
+    balance.innerHTML = `current balance is ${current_user.currency - 1}`
+    coins.appendChild(balance)
     if(current_user.currency > 0){
         const won = document.getElementById("result")
         const outcome = document.getElementById("resultoutcome")
@@ -338,7 +348,16 @@ function verify(item_name) {
 function getmob(){
     const randomMob = Math.floor(Math.random() * (moblist.length))
     current_mob = moblist[randomMob] 
+    saveoriginalhp()
 }
+
+function saveoriginalhp(){
+    origuserhp = current_user.hp;
+    origmobhp = current_mob.hp;
+    console.log("Original user HP: " + origuserhp);
+    console.log("Original mob HP: " + origmobhp);
+}
+
 
 function battle(){
 
@@ -378,10 +397,18 @@ function battle(){
             }
     }
     else{
-        alert("Match is over")
-        swapPage("menu")
-        current_user.hp = origuserhp
-        current_mob.hp = origmobhp
+        alert("Match is over");
+        console.log("Resetting HP...");
+        console.log("Original user HP: " + origuserhp);
+        console.log("Original mob HP: " + origmobhp);
+        
+        // Reset HP to original values
+        current_user.hp = origuserhp;
+        current_mob.hp = origmobhp;
+        
+        // Reset the page to the menu
+        swapPage("menu");
+        
     }
 }
 
@@ -446,6 +473,7 @@ function swapPage(page) {
         <h1>Gacha</h1>
         <p>Lagay mo dito yung gacha mo</p>
         <button onclick = "gacha()">ROLL</button>
+        <div id = "currency"></div>
         <div id = "result"></div>
         <div id = "resultoutcome"></div>
         `
