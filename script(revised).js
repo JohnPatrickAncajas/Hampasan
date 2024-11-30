@@ -5,7 +5,7 @@ class User {
         this.hp = hp;
         this.currency = currency;
         this.equipped = equipped;
-        this.defaulpng = defaultpng;
+        this.defaultpng = defaultpng;
     }
 }
 
@@ -40,9 +40,15 @@ class Moveset {
 const mobes = [
   
     [
-    new Moveset("Poison Dart", 40,".png"),
-    new Moveset("Robbery", 30, ".png"),
-    new Moveset("Lashout", 50, ".png")
+        new Moveset("Poison Dart", 40,".png"),
+        new Moveset("Robbery", 30, ".png"),
+        new Moveset("Lashout", 50, ".png")
+    ],
+
+    [
+        new Moveset("Ink Cloud", 100,".png"),
+        new Moveset("Tentacle Grasp", 120, ".png"),
+        new Moveset("Eldritch Horror", 500, ".png")
     ],
     
 ]
@@ -87,8 +93,9 @@ const userlist = [
 ]
 
 // mob list
-const moblist =[
+const moblist = [
     new Mob("Bandit", 1000, mobes[0],"bandit.png"),
+    new Mob("Kraken", 1200, mobes[1],"kraken.png"),
 ]
 
 
@@ -109,6 +116,16 @@ function debugtool(){
 //-----------------------------------------------------------------------------------------//
 // get current user
 let current_user = null
+let current_mob = null
+
+let origuserhp = 0
+let origmobhp = 0
+
+function saveoriginalhp(){
+    origuserhp = current_user.hp
+    origmobhp = current_mob.hp
+}
+
 function getcurrentuser(){
     console.log("function called")
     const userBox = document.getElementById('usernamePasswordBox')
@@ -199,6 +216,7 @@ function loadmenutools(){
     debugtool()
     menu()
     changeweapon()
+    saveoriginalhp()
 }
 function changeweapon(){
     console.log("weaponry function loaded ")
@@ -257,34 +275,37 @@ function menu(){
 //----------------------------------GACHA SECTION-----------------------------------------//
 // Gacha
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 
-async function gacha() {
+
+function gacha() {
     const won = document.getElementById("result")
     const outcome = document.getElementById("resultoutcome")
     outcome.innerHTML = " "
-    for (let i = 0; i < 10; i++) {
-        await sleep(200)
-        const randomIndex = Math.floor(Math.random() * (weaponlist.length-1))+1
-        const prize = document.createElement('h1')
-        prize.innerHTML = `You won: ${weaponlist[randomIndex].name}`
-        won.innerHTML = " "
-        won.appendChild(prize)
+    let i = 0
+    const delay = 300
+    function showPrize() {
+        if (i < 10) {
+            const randomIndex = Math.floor(Math.random() * (weaponlist.length - 1)) + 1
+            const prize = document.createElement('h1')
+            prize.innerHTML = `You won: ${weaponlist[randomIndex].name}`
+            
+            won.innerHTML = ""
+            won.appendChild(prize);i++;
+            setTimeout(showPrize, delay)
+        } else {
+            won.innerHTML = "";
+            const finalPrizeIndex = Math.floor(Math.random() * (weaponlist.length - 1)) + 1
+            const finalPrize = document.createElement('h1')
+            finalPrize.innerHTML = `You won: ${weaponlist[finalPrizeIndex].name}`
+            won.appendChild(finalPrize)
+            const outcometext = document.createElement("h1")
+            outcometext.innerHTML = verify(weaponlist[finalPrizeIndex].name)
+            outcome.appendChild(outcometext)
+        }
     }
-
-    won.innerHTML = " "
-    const finalPrizeIndex = Math.floor(Math.random() * (weaponlist.length-1))+1
-    const finalPrize = document.createElement('h1');
-    finalPrize.innerHTML = `You won: ${weaponlist[finalPrizeIndex].name}`
-    won.appendChild(finalPrize)
-
-    
-    const outcometext = document.createElement("h1")
-    outcometext.innerHTML = verify(weaponlist[finalPrizeIndex].name)
-    outcome.appendChild(outcometext)
+    showPrize()
 }
+
 
 function verify(item_name) {
     for (let i = 0; i < weaponlist.length; i++) {
@@ -300,8 +321,82 @@ function verify(item_name) {
     }
 }
 
-//verify
+//verify gacha
+//========================================================================
+// PVE SECTION
 
+function getmob(){
+    const randomMob = Math.floor(Math.random() * (moblist.length))
+    current_mob = moblist[randomMob] 
+}
+
+function battle(){
+    const playerbox = document.getElementById('PlayerBox')
+    playerbox.innerHTML = " "
+    //player panel
+    const playerhp = document.createElement('h4')
+    playerhp.innerHTML = `${current_user.name} HP: <b>${current_user.hp}</b>`
+    playerbox.appendChild(playerhp)
+     
+    const mobBox = document.getElementById('MobBox')
+    mobBox.innerHTML = " "
+    
+    const mobhp = document.createElement('h4')
+    mobhp.innerHTML = `${current_mob.name} HP: <b>${current_mob.hp}</b>`
+    mobBox.appendChild(mobhp)
+
+    console.log(current_mob.name)
+    console.log(current_mob.hp)
+    console.log("current_mob debug")
+    
+    //move buttons
+    for(let i = 0; i < 3; i++){
+        const move = document.createElement('button')
+        move.innerHTML = `${current_user.equipped.moveset[i].name}`
+        move.addEventListener('click',function(){
+            alert(current_user.equipped.moveset[i].name + " was used")
+            deal_damagetomob(i)
+            mobturn()     
+        })
+        playerbox.appendChild(move)
+
+        const mobe = document.createElement('h4')
+        mobe.innerHTML = `Enemy move #${i+1}: ${current_mob.moveset[i].name}`
+        mobBox.appendChild(mobe)
+    }
+
+}
+
+//mob's turn
+function mobturn(){
+    const mobBox = document.getElementById('MobBox')
+    mobBox.innerHTML=" "
+
+    const mobhp = document.createElement('h4')
+    mobhp.innerHTML =`${current_mob.name} HP: ${current_mob.hp}`
+    mobBox.appendChild(mobhp)
+
+    const randomMove = Math.floor(Math.random()*current_mob.moveset.length)
+    alert(current_mob.name + " used " + current_mob.moveset[randomMove].name)
+    deal_damagetoplayer(randomMove)
+    setTimeout(battle, 500);
+}
+
+//deal dmg to mob
+function deal_damagetomob(move){
+    current_mob.hp -= current_user.equipped.moveset[move].damage * current_user.equipped.refinement
+    if(current_mob.hp < 0){
+        alert(current_mob.name + " defeated! ")
+    }
+}
+
+//deal dmg to player
+function deal_damagetoplayer(move){
+    current_user.hp -= current_mob.moveset[move].damage
+    if(current_user.hp < 0){
+        alert(current_user.name + " was defeated")
+    }
+}
 
 
 function swapPage(page) {
@@ -311,17 +406,22 @@ function swapPage(page) {
         <div id ='playerinfo'></div>
         <div id ='weaponry'></div>`
         loadmenutools()
+
     } else if (page === 'fight') {
         pageDisplay.innerHTML = `
-            <div class="fightingDiv">
-                <div class="fightBox">
+            <div class="fightingBox">
+                <div id="PlayerBox">
                     <p>Character</p>
                 </div>
-                <div class="fightBox">
-                    <p>Hahampasin</p>
+                
+                <div id="MobBox">
+                    <p>Hahampasin</p>   
                 </div>
             </div>
-        `;
+        `
+        getmob()
+        debugtool()
+        battle()
     } else if (page === 'gacha') {
         pageDisplay.innerHTML = `
         <h1>Gacha</h1>
@@ -330,6 +430,5 @@ function swapPage(page) {
         <div id = "result"></div>
         <div id = "resultoutcome"></div>
         `
-
     }
 }
