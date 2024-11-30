@@ -380,6 +380,8 @@ function battle(){
     else{
         alert("Match is over")
         swapPage("menu")
+        current_user.hp = origuserhp
+        current_mob.hp = origmobhp
     }
 }
 
