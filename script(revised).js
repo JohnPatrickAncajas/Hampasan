@@ -242,34 +242,36 @@ function equip(weapon){
 }
 
 function menu(){
-    const pageDisplay = document.getElementById('playerinfo');
-    pageDisplay.innerHTML = `
-                           <div id="characterInfo">
-                                <img id="characterImage" src ="temp.png">
-                                <p>Username: ${current_user.name}</p>
-                                <p>Weapon: ${current_user.equipped.name}</p>
-                           </div>
-                           <div id="weaponMovesInfo">
-                                <h2>${current_user.equipped.name} Moves</h2>
-                                <h3>${current_user.equipped.moveset[0].name}</h3>
-                                <p>${current_user.equipped.moveset[0].description}</p>
-                                <h3>${current_user.equipped.moveset[1].name}</h3>
-                                <p>${current_user.equipped.moveset[1].description}</p>
-                                <h3>${current_user.equipped.moveset[2].name}</h3>
-                                <p>${current_user.equipped.moveset[2].description}</p>
-                           </div>
-                           <div id="weaponryInfo">
-                                <div id="username">${current_user.name}'s Weapons</div>
-                                <hr>
-                                <div id="weaponry"></div>
-                           </div>
-                           `
     
-    const changeweapon = document.getElementById('weaponry')
-    changeweapon.addEventListener('click', function(){
-        changeweapon();
-    })
-}
+    const pageDisplay = document.getElementById('playerinfo');
+        pageDisplay.innerHTML = `
+                            <div id="characterInfo">
+                                    <img id="characterImage" src ="temp.png">
+                                    <p>Username: ${current_user.name}</p>
+                                    <p>Weapon: ${current_user.equipped.name}</p>
+                            </div>
+                            <div id="weaponMovesInfo">
+                                    <h2>${current_user.equipped.name} Moves</h2>
+                                    <h3>${current_user.equipped.moveset[0].name}</h3>
+                                    <p>${current_user.equipped.moveset[0].description}</p>
+                                    <h3>${current_user.equipped.moveset[1].name}</h3>
+                                    <p>${current_user.equipped.moveset[1].description}</p>
+                                    <h3>${current_user.equipped.moveset[2].name}</h3>
+                                    <p>${current_user.equipped.moveset[2].description}</p>
+                            </div>
+                            <div id="weaponryInfo">
+                                    <div id="username">${current_user.name}'s Weapons</div>
+                                    <hr>
+                                    <div id="weaponry"></div>
+                            </div>
+                            `
+        
+        const changeweapon = document.getElementById('weaponry')
+        changeweapon.addEventListener('click', function(){
+            changeweapon();
+        })
+    }
+
 
 
 //----------------------------------GACHA SECTION-----------------------------------------//
@@ -278,32 +280,40 @@ function menu(){
 
 
 function gacha() {
-    const won = document.getElementById("result")
-    const outcome = document.getElementById("resultoutcome")
-    outcome.innerHTML = " "
-    let i = 0
-    const delay = 300
-    function showPrize() {
-        if (i < 10) {
-            const randomIndex = Math.floor(Math.random() * (weaponlist.length - 1)) + 1
-            const prize = document.createElement('h1')
-            prize.innerHTML = `You won: ${weaponlist[randomIndex].name}`
-            
-            won.innerHTML = ""
-            won.appendChild(prize);i++;
-            setTimeout(showPrize, delay)
-        } else {
-            won.innerHTML = "";
-            const finalPrizeIndex = Math.floor(Math.random() * (weaponlist.length - 1)) + 1
-            const finalPrize = document.createElement('h1')
-            finalPrize.innerHTML = `You won: ${weaponlist[finalPrizeIndex].name}`
-            won.appendChild(finalPrize)
-            const outcometext = document.createElement("h1")
-            outcometext.innerHTML = verify(weaponlist[finalPrizeIndex].name)
-            outcome.appendChild(outcometext)
+    if(current_user.currency > 0){
+        const won = document.getElementById("result")
+        const outcome = document.getElementById("resultoutcome")
+        outcome.innerHTML = " "
+        let i = 0
+        const delay = 300
+        function showPrize() {
+            if (i < 10) {
+                const randomIndex = Math.floor(Math.random() * (weaponlist.length - 1)) + 1
+                const prize = document.createElement('h1')
+                prize.innerHTML = `You won: ${weaponlist[randomIndex].name}`
+                
+                won.innerHTML = ""
+                won.appendChild(prize);i++;
+                setTimeout(showPrize, delay)
+            } else {
+                won.innerHTML = "";
+                const finalPrizeIndex = Math.floor(Math.random() * (weaponlist.length - 1)) + 1
+                const finalPrize = document.createElement('h1')
+                finalPrize.innerHTML = `You won: ${weaponlist[finalPrizeIndex].name}`
+                won.appendChild(finalPrize)
+                const outcometext = document.createElement("h1")
+                outcometext.innerHTML = verify(weaponlist[finalPrizeIndex].name)
+                outcome.appendChild(outcometext)
+            }
         }
+        showPrize()
+        current_user.currency -= 1
     }
-    showPrize()
+    else
+    {
+        alert("insufficient coins, please proceed to fight monsters to get coins")
+        swapPage("fight")
+    }
 }
 
 
@@ -331,40 +341,46 @@ function getmob(){
 }
 
 function battle(){
-    const playerbox = document.getElementById('PlayerBox')
-    playerbox.innerHTML = " "
-    //player panel
-    const playerhp = document.createElement('h4')
-    playerhp.innerHTML = `${current_user.name} HP: <b>${current_user.hp}</b>`
-    playerbox.appendChild(playerhp)
-     
-    const mobBox = document.getElementById('MobBox')
-    mobBox.innerHTML = " "
-    
-    const mobhp = document.createElement('h4')
-    mobhp.innerHTML = `${current_mob.name} HP: <b>${current_mob.hp}</b>`
-    mobBox.appendChild(mobhp)
 
-    console.log(current_mob.name)
-    console.log(current_mob.hp)
-    console.log("current_mob debug")
-    
-    //move buttons
-    for(let i = 0; i < 3; i++){
-        const move = document.createElement('button')
-        move.innerHTML = `${current_user.equipped.moveset[i].name}`
-        move.addEventListener('click',function(){
-            alert(current_user.equipped.moveset[i].name + " was used")
-            deal_damagetomob(i)
-            mobturn()     
-        })
-        playerbox.appendChild(move)
+    if(current_user.hp > 0 && current_mob.hp > 0){
+        const playerbox = document.getElementById('PlayerBox')
+        playerbox.innerHTML = " "
+        //player panel
+        const playerhp = document.createElement('h4')
+        playerhp.innerHTML = `${current_user.name} HP: <b>${current_user.hp}</b>`
+        playerbox.appendChild(playerhp)
+            
+        const mobBox = document.getElementById('MobBox')
+        mobBox.innerHTML = " "
 
-        const mobe = document.createElement('h4')
-        mobe.innerHTML = `Enemy move #${i+1}: ${current_mob.moveset[i].name}`
-        mobBox.appendChild(mobe)
+        const mobhp = document.createElement('h4')
+        mobhp.innerHTML = `${current_mob.name} HP: <b>${current_mob.hp}</b>`
+        mobBox.appendChild(mobhp)
+
+        console.log(current_mob.name)
+        console.log(current_mob.hp)
+        console.log("current_mob debug")
+
+        //move buttons
+        for(let i = 0; i < 3; i++){
+            const move = document.createElement('button')
+            move.innerHTML = `${current_user.equipped.moveset[i].name}`
+            move.addEventListener('click',function(){
+                alert(current_user.equipped.moveset[i].name + " was used")
+                deal_damagetomob(i)
+                mobturn()     
+            })
+            playerbox.appendChild(move)
+
+            const mobe = document.createElement('h4')
+            mobe.innerHTML = `Enemy move #${i+1}: ${current_mob.moveset[i].name}`
+            mobBox.appendChild(mobe)
+            }
     }
-
+    else{
+        alert("Match is over")
+        swapPage("menu")
+    }
 }
 
 //mob's turn
@@ -379,14 +395,15 @@ function mobturn(){
     const randomMove = Math.floor(Math.random()*current_mob.moveset.length)
     alert(current_mob.name + " used " + current_mob.moveset[randomMove].name)
     deal_damagetoplayer(randomMove)
-    setTimeout(battle, 500);
+    setTimeout(battle, 200);
 }
 
 //deal dmg to mob
 function deal_damagetomob(move){
     current_mob.hp -= current_user.equipped.moveset[move].damage * current_user.equipped.refinement
     if(current_mob.hp < 0){
-        alert(current_mob.name + " defeated! ")
+        alert(current_mob.name + " defeated!, you got + 1 coin for winning!")
+        current_user.currency += 1
     }
 }
 
