@@ -360,58 +360,66 @@ function saveoriginalhp(){
 }
 
 
-function battle(){
-
+function battle() {
     if(current_user.hp > 0 && current_mob.hp > 0){
-        const playerbox = document.getElementById('PlayerBox')
-        playerbox.innerHTML = " "
-        //player panel
-        const playerhp = document.createElement('h4')
-        playerhp.innerHTML = `${current_user.name} HP: <b>${current_user.hp}</b>`
-        playerbox.appendChild(playerhp)
-            
-        const mobBox = document.getElementById('MobBox')
-        mobBox.innerHTML = " "
+        const playerbox = document.getElementById('PlayerBox');
+        const playerStatsbox = document.getElementById('PlayerStatsBox');
+        playerbox.innerHTML = " ";
+        playerStatsbox.innerHTML = " ";
 
-        const mobhp = document.createElement('h4')
-        mobhp.innerHTML = `${current_mob.name} HP: <b>${current_mob.hp}</b>`
-        mobBox.appendChild(mobhp)
+        const playerImage = document.createElement('img');
+        playerImage.src = 'temp.png';
+        playerImage.alt = current_user.name;
+        playerImage.id = "PlayerImage";
+        playerbox.appendChild(playerImage);
 
-        console.log(current_mob.name)
-        console.log(current_mob.hp)
-        console.log("current_mob debug")
+        const playerhp = document.createElement('h6');
+        playerhp.innerHTML = `${current_user.name} HP: <b>${current_user.hp}</b>`;
+        playerStatsbox.appendChild(playerhp);
 
-        //move buttons
-        for(let i = 0; i < 3; i++){
-            const move = document.createElement('button')
-            move.innerHTML = `${current_user.equipped.moveset[i].name}`
-            move.addEventListener('click',function(){
-                alert(current_user.equipped.moveset[i].name + " was used")
-                deal_damagetomob(i)
-                mobturn()     
-            })
-            playerbox.appendChild(move)
+        const mobBox = document.getElementById('MobBox');
+        const mobStatsBox = document.getElementById('MobStatsBox');
+        mobBox.innerHTML = " ";
+        mobStatsBox.innerHTML = " ";
 
-            const mobe = document.createElement('h4')
-            mobe.innerHTML = `Enemy move #${i+1}: ${current_mob.moveset[i].name}`
-            mobBox.appendChild(mobe)
-            }
+        const MobImage = document.createElement('img');
+        MobImage.src = 'temp.png';
+        MobImage.alt = current_user.name;
+        MobImage.id = "MobImage";
+        mobBox.appendChild(MobImage);
+        
+        const mobhp = document.createElement('h6');
+        mobhp.innerHTML = `${current_mob.name} HP: <b>${current_mob.hp}</b>`;
+        mobStatsBox.appendChild(mobhp);
+
+        for (let i = 0; i < 3; i++) {
+            const move = document.createElement('h6');
+            move.innerHTML = `Player move #${i + 1}: ${current_user.equipped.moveset[i].name}`;
+            move.addEventListener('click', function() {
+                alert(current_user.equipped.moveset[i].name + " was used");
+                deal_damagetomob(i);
+                mobturn();
+            });
+            playerStatsbox.appendChild(move);
+
+            const mobe = document.createElement('h6');
+            mobe.innerHTML = `Enemy move #${i + 1}: ${current_mob.moveset[i].name}`;
+            mobStatsBox.appendChild(mobe);
+        }
     }
-    else{
+    else {
         alert("Match is over");
         console.log("Resetting HP...");
         console.log("Original user HP: " + origuserhp);
         console.log("Original mob HP: " + origmobhp);
         
-        // Reset HP to original values
         current_user.hp = origuserhp;
         current_mob.hp = origmobhp;
         
-        // Reset the page to the menu
         swapPage("menu");
-        
     }
 }
+
 
 //mob's turn
 function mobturn(){
@@ -462,12 +470,13 @@ function swapPage(page) {
     } else if (page === 'fight') {
         pageDisplay.innerHTML = `
             <div class="fightingDiv">
-                <div class="fightBox" id="PlayerBox">
-                    <p>Character</p>
+                <div id="fightAnimationDiv">
+                    <div class="fightBox" id="PlayerBox"></div>
+                    <div class="fightBox" id="MobBox"></div>
                 </div>
-                
-                <div class="fightBox" id="MobBox">
-                    <p>Hahampasin</p>   
+                <div id="fightStatsDiv">
+                    <div class="fightStatsBox" id="PlayerStatsBox"></div>
+                    <div class="fightStatsBox" id="MobStatsBox"><div/>
                 </div>
             </div>
         `

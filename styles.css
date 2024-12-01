@@ -173,6 +173,7 @@ input[list] option:hover {
 
 .fightingDiv {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
     width: 100%;
@@ -180,16 +181,62 @@ input[list] option:hover {
 }
 
 .fightBox {
-    width: 40%;
-    height: 70%;
-    border: 0.1rem solid #6F4F24;
-    background-color: #4A2C2A;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-size: clamp(1rem, 2.5vw, 1.5rem);
     color: white;
+}
+
+#fightAnimationDiv {
+    display: flex;
+    height: 50vh;
+    width: 90vw;
+    justify-content: space-between;
+}  
+
+#fightStatsDiv {
+    display: flex;
+    justify-content: space-between;
+    width: 90vw;
+    height: 20vh;
+}  
+
+.fightStatsBox {
+    border: 2px solid #6F4F24;
+    background-color: #5C4033;
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: white;
+}
+
+.fightStatsBox > * {
+    padding: 0.5rem;
+    height: 5vh;
+}
+
+.fightStatsBox > *:nth-child(2),
+.fightStatsBox > *:nth-child(3),
+.fightStatsBox > *:nth-child(4) {
+    text-align: left;
+    align-self: self-start;
+}
+
+.fightStatsBox h6{
+    margin: 0;
+    font-size: 50%;
+}
+
+#PlayerStatsBox h6 {
+    background: none;
+    color: #fff;
+    width: 100%;
 }
 
 #loginModal {
@@ -262,7 +309,7 @@ input[list] option:hover {
     border: 2px solid #6F4F24;
 }
 
-#weaponMovesInfo, #weaponryInfo {
+#weaponMovesInfo, #weaponryInfo, .fightStatsBox {
     border: 2px solid #3D5AFE;
 }
 
