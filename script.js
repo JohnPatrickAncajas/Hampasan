@@ -388,11 +388,13 @@ function battle() {
         MobImage.src = 'temp.png';
         MobImage.alt = current_user.name;
         MobImage.id = "MobImage";
+        
         mobBox.appendChild(MobImage);
         
         const mobhp = document.createElement('h6');
         mobhp.innerHTML = `${current_mob.name} HP: <b>${current_mob.hp}</b>`;
         mobStatsBox.appendChild(mobhp);
+        
 
         for (let i = 0; i < 3; i++) {
             const move = document.createElement('h6');
@@ -403,12 +405,16 @@ function battle() {
                     alert(current_user.equipped.moveset[i].name + " was used");
                     deal_damagetomob(i);
                     mobturn();
+                    
                 }, 2000);
+                
             });
+            
             playerStatsbox.appendChild(move);
             const mobe = document.createElement('h6');
             mobe.innerHTML = `Enemy move #${i + 1}: ${current_mob.moveset[i].name}`;
             mobStatsBox.appendChild(mobe);
+            
 
         }
         const runbutton = document.createElement('button')
@@ -452,9 +458,18 @@ function mobturn(){
     mobBox.appendChild(mobhp)
 
     const randomMove = Math.floor(Math.random()*current_mob.moveset.length)
-    alert(current_mob.name + " used " + current_mob.moveset[randomMove].name)
     deal_damagetoplayer(randomMove)
-    setTimeout(battle, 200);
+    alert(current_mob.name + " used " + current_mob.moveset[randomMove].name)
+
+    const mobBox2 = document.getElementById('MobBox');
+    const MobImage = document.createElement('img');
+    MobImage.src = 'temp.png';
+    MobImage.alt = current_user.name;
+    MobImage.id = "MobImage";
+    MobImage.className ="animationMob";
+    mobBox2.appendChild(MobImage);
+    
+    setTimeout(battle, 2000);
 }
 
 //deal dmg to mob
