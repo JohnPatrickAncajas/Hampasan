@@ -2,7 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Press Start 2P', cursive;
-    background-color: #3b0000;
+    background-color: #2C2C2C;
 }
 
 #pageDisplay {
@@ -11,18 +11,18 @@ body, html {
     justify-content: center;
     align-items: center;
     height: calc(100vh - 4rem);
-    background-color: #3b0000;
+    background-color: #2C2C2C;
 }
 
 #pageDisplay h1 {
     font-size: clamp(2rem, 3rem, 4rem);
-    color: #240000;
+    color: #6F4F24;
 }
 
 #pageDisplay p {
     font-size: clamp(0.5rem, 1rem, 1.5rem);
     text-align: center;
-    color: #ffaaaa;
+    color: #FFEB3B;
 }
 
 #usernamePasswordBox2 {
@@ -31,8 +31,8 @@ body, html {
     padding: 2rem 4rem;
     width: auto;
     height: auto;
-    background-color: #843030;
-    border: #990000 solid 0.1rem;
+    background-color: #4F4F4F;
+    border: #6F4F24 solid 0.1rem;
     border-radius: 0.5rem;
     color: white;
 }
@@ -43,8 +43,8 @@ body, html {
     padding: 2rem 4rem;
     width: auto;
     height: auto;
-    background-color: #843030;
-    border: #990000 solid 0.1rem;
+    background-color: #4F4F4F;
+    border: #6F4F24 solid 0.1rem;
     border-radius: 0.5rem;
     color: white;
 }
@@ -52,23 +52,23 @@ body, html {
 .inputBox {
     padding: 0.5rem 1rem;
     margin: 1rem 0;
-    background-color: #4a0f0f;
+    background-color: #4A2C2A;
     color: white;
     border-radius: 0.4rem;
     border: none;
 }
 
 .inputBox:focus {
-    background-color: #4a0f0f;
+    background-color: #4A2C2A;
     outline: none;
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-    background-color: #4a0f0f !important;
+    background-color: #4A2C2A !important;
     color: white !important;
-    box-shadow: 0 0 0 2rem #4a0f0f inset !important;
+    box-shadow: 0 0 0 2rem #4A2C2A inset !important;
 }
 
 input:-webkit-autofill::first-line {
@@ -76,19 +76,19 @@ input:-webkit-autofill::first-line {
 }
 
 input[list] {
-    background-color: #4a0f0f;
+    background-color: #4A2C2A;
     color: white;
     border: none;
 }
 
 input[list] option:hover {
-    background-color: #7a1f1f;
+    background-color: #6F4F24;
 }
 
 #loginusername {
     padding: 0.5rem 1rem;
     margin: 1rem 0;
-    background-color: #4a0f0f;
+    background-color: #4A2C2A;
     color: white;
     border: none;
     border-radius: 0.4rem;
@@ -101,14 +101,14 @@ input[list] option:hover {
     margin-top: 1rem;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    background-color: #ff4d4d;
+    background: linear-gradient(45deg, #6F4F24, #8B5D33);
     color: white;
     border: none;
     cursor: pointer;
 }
 
 #submitButton:hover, #changeWeaponButton:hover {
-    background-color: #ff1a1a;
+    background-color: #B57547;
 }
 
 #mainInfoDiv {
@@ -130,20 +130,19 @@ input[list] option:hover {
     height: auto;
 }
 
-#weaponMovesAndWeaponryInfo {
-    display: flex;
-    flex-direction: column;
-}
-
 #weaponMovesInfo, #weaponryInfo {
     display: flex;
     flex-direction: column;
-    background-color: #9b1e1e;
+    background-color: #5C4033;
     border-radius: 0.5rem;
     width: auto;
     margin: 0.5rem;
     padding: 1rem;
     color: white;
+}
+
+#weaponMovesInfo, #weaponryInfo {
+    border: 2px solid #6F4F24;
 }
 
 .menuButton {
@@ -152,7 +151,7 @@ input[list] option:hover {
     display: flex;
     width: 100%;
     height: 4rem;
-    background-color: #8a0000;
+    background-color: #4A2C2A;
     justify-content: space-around;
     align-items: center;
 }
@@ -168,7 +167,7 @@ input[list] option:hover {
 }
 
 .menuButton button:hover {
-    background-color: #ff0000;
+    background-color: #6F4F24;
     border-radius: 0.5rem;
 }
 
@@ -183,8 +182,8 @@ input[list] option:hover {
 .fightBox {
     width: 40%;
     height: 70%;
-    border: 0.1rem solid #990000;
-    background-color: #600000;
+    border: 0.1rem solid #6F4F24;
+    background-color: #4A2C2A;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -207,46 +206,66 @@ input[list] option:hover {
 }
 
 #modalContent {
-    background-color: #ff0000;
+    background-color: #5C4033;
     padding: 5rem;
     border-radius: 0.5rem;
     text-align: center;
     width: 60vw;
     box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.2);
     color: white;
+    border: 2px solid #6F4F24;
 }
 
 #modalContent h1 {
     margin: 0 0 3rem;
+    font-size: clamp(2rem, 3rem, 4rem);
+    color: #FFEB3B;
 }
 
 #modalContent button {
     background-color: inherit;
-    color: #000;
+    color: white;
     border: none;
     padding: 0.6rem 1.2rem;
     font-size: 16px;
     cursor: pointer;
     border-radius: 0.4rem;
-    font-weight: 900;
+    font-weight: 700;
 }
+
+#modalContent button:hover {
+    opacity: 20%;
+}
+
 
 #submituser {
     padding: 0.5rem 1rem;
     margin-top: 1rem;
-    background-color: #862121 !important;
+    background-color: #8B5D33 !important;
     border: none;
-    border-radius: 0.4rem; 
+    border-radius: 0.4rem;
     font-size: 1rem;
     cursor: pointer;
     font-weight: 700;
 }
 
 #submituser:hover {
-    background-color: #ae0f0f !important;
+    background-color: #B57547 !important;
     border-radius: 0.4rem;
 }
 
 .hidden {
     display: none;
+}
+
+#submitButton, #changeWeaponButton {
+    border: 2px solid #6F4F24;
+}
+
+#weaponMovesInfo, #weaponryInfo {
+    border: 2px solid #3D5AFE;
+}
+
+#modalContent {
+    border: 2px solid #FFEB3B;
 }
