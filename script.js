@@ -161,6 +161,8 @@ function getcurrentuser() {
                 swapPage('menu')
                 menu()
                 changeweapon()
+                getmob()
+                saveoriginalhp()
             } else {
                 alert("Username not found. Please try again.");
                 document.getElementById('loginusername').value = "";
@@ -273,8 +275,8 @@ function menu(){
                                 </div>
                             </div>`
         
-        const changeweapon = document.getElementById('weaponry')
-        changeweapon.addEventListener('click', function(){
+        const changeweaponbutton = document.getElementById('weaponry')
+        changeweaponbutton.addEventListener('click', function(){
             changeweapon();
         })
     }
@@ -349,7 +351,7 @@ function verify(item_name) {
 function getmob(){
     const randomMob = Math.floor(Math.random() * (moblist.length))
     current_mob = moblist[randomMob] 
-    saveoriginalhp()
+    
 }
 
 function saveoriginalhp(){
@@ -407,7 +409,15 @@ function battle() {
             const mobe = document.createElement('h6');
             mobe.innerHTML = `Enemy move #${i + 1}: ${current_mob.moveset[i].name}`;
             mobStatsBox.appendChild(mobe);
+
         }
+        const runbutton = document.createElement('button')
+        runbutton.innerHTML = ` RUN `
+        runbutton.addEventListener('click',function(){
+            alert(`${current_user.name} was defeated! (ran away from the fight)`)
+            run()
+        })
+        playerStatsbox.appendChild(runbutton)
     }
     else {
         alert("Match is over");
@@ -420,6 +430,15 @@ function battle() {
         
         swapPage("menu");
     }
+}
+
+//Run button
+function run(){
+    current_user.hp = 0
+    swapPage("menu")
+    current_user.hp = origuserhp;
+    current_mob.hp = origmobhp;
+        
 }
 
 
@@ -481,10 +500,11 @@ function swapPage(page) {
                     <div class="fightStatsBox" id="MobStatsBox"><div/>
                 </div>
             </div>
-        `
+        ` 
         getmob()
         debugtool()
         battle()
+        
     } else if (page === 'gacha') {
         pageDisplay.innerHTML = `
         <h1>Weapon Gacha</h1>
