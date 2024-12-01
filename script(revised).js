@@ -133,24 +133,26 @@ let origuserhp = 0
 let origmobhp = 0
 
 
-function getcurrentuser(){
-    console.log("function called")
-    const userBox = document.getElementById('usernamePasswordBox')
-    if(current_user == null){
-        console.log("user not found")
-        const loginpanel = document.createElement('input')
-        loginpanel.type ="text"
-        loginpanel.id = "loginusername"
-        loginpanel.placeholder ="input username here"
-        userBox.appendChild(loginpanel)
-        
+function getcurrentuser() {
+    console.log("function called");
+    const userBox1= document.getElementById('usernamePasswordBox1');
+    const userBox2 = document.getElementById('usernamePasswordBox2');
+    if (current_user == null) {
+        console.log("user not found");
 
-        const submitButton = document.createElement('button')
+        userBox2.style.display = "none";
+        userBox1.className = "usernamePasswordBox1";
+        const loginpanel = document.createElement('input');
+        loginpanel.type = "text";
+        loginpanel.id = "loginusername";
+        loginpanel.placeholder = "Input Username here";
+        userBox1.appendChild(loginpanel);
+
+        const submitButton = document.createElement('button');
         submitButton.id = "submituser";
         submitButton.innerText = "Submit Username";
-        userBox.appendChild(submitButton);
+        userBox1.appendChild(submitButton);
 
-        
         submitButton.addEventListener('click', function(){
             current_user = getuserinput();
             if (current_user) {
@@ -159,16 +161,12 @@ function getcurrentuser(){
                 swapPage('menu')
                 menu()
                 changeweapon()
-            }
-            else
-            {
+            } else {
                 alert("Username not found. Please try again.");
                 document.getElementById('loginusername').value = "";
             }
         });
-    }
-    else
-    {
+    } else {
         console.log("already logged in")
     }
 }
@@ -450,7 +448,7 @@ function swapPage(page) {
     if (page === 'menu'){
         pageDisplay.innerHTML = `
         <h1>Welcome to Hampasan!</h1>
-        <div id='usernamePasswordBox'>
+        <div id='usernamePasswordBox2'>
            <button onclick = "getcurrentuser()">START</button>
         </div>
     

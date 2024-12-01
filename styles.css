@@ -23,23 +23,74 @@ body, html {
     color: #ffaaaa;
 }
 
-#usernamePasswordBox {
+#usernamePasswordBox2 {
     display: flex;
     flex-direction: column;
     padding: 2rem 4rem;
     width: auto;
     height: auto;
-    background-color: #6e1c1c;
+    background-color: #843030;
     border: #990000 solid 0.1rem;
     border-radius: 0.5rem;
     color: white;
 }
+
+.usernamePasswordBox1 {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 4rem;
+    width: auto;
+    height: auto;
+    background-color: #843030;
+    border: #990000 solid 0.1rem;
+    border-radius: 0.5rem;
+    color: white;
+}
+
 .inputBox {
     padding: 0.5rem 1rem;
     margin: 1rem 0;
     background-color: #4a0f0f;
     color: white;
     border-radius: 0.4rem;
+    border: none;
+}
+
+.inputBox:focus {
+    background-color: #4a0f0f;
+    outline: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    background-color: #4a0f0f !important;
+    color: white !important;
+    box-shadow: 0 0 0 2rem #4a0f0f inset !important;
+}
+
+input:-webkit-autofill::first-line {
+    color: white !important;
+}
+
+input[list] {
+    background-color: #4a0f0f;
+    color: white;
+    border: none;
+}
+
+input[list] option:hover {
+    background-color: #7a1f1f;
+}
+
+#loginusername {
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    background-color: #4a0f0f;
+    color: white;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1rem;
 }
 
 #submitButton, #changeWeaponButton {
@@ -156,16 +207,34 @@ body, html {
     box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.2);
     color: white;
 }
+
 #modalContent h1 {
     margin: 0 0 3rem;
 }
 #modalContent button {
     background-color: inherit;
-    color: white;
+    color: #000;
     border: none;
     padding: 0.6rem 1.2rem;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 0.4rem;
+    font-weight: 900;
+}
+
+#submituser {
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    background-color: #862121 !important;
+    border: none;
+    border-radius: 0.4rem; 
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+#submituser:hover {
+    background-color: #ae0f0f !important;
     border-radius: 0.4rem;
 }
 
