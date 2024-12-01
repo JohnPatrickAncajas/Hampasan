@@ -228,6 +228,13 @@ input[list] option:hover {
     align-self: self-start;
 }
 
+#PlayerStatsBox > *:nth-child(2):hover,
+#PlayerStatsBox > *:nth-child(3):hover,
+#PlayerStatsBox > *:nth-child(4):hover {
+    opacity: 30%;
+    cursor: pointer;
+}
+
 .fightStatsBox h6{
     margin: 0;
     font-size: 50%;
