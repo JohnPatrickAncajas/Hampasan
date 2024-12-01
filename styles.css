@@ -323,3 +323,48 @@ input[list] option:hover {
 #modalContent {
     border: 2px solid #FFEB3B;
 }
+
+
+.animationSword {
+    animation: swordMovement 2s ease-in-out;
+}
+
+@keyframes swordMovement {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+    5% {
+        transform: translateX(44vw) translateY(-5vh);
+    }
+    10% {
+        transform: translateX(calc(44vw + 5rem)) translateY(5vh);
+    }
+    15% {
+        transform: translateX(44vw) translateY(10vh);
+    }
+    20% {
+        transform: translateX(calc(44vw + 5rem)) translateY(5vh);
+    }
+    25% {
+        transform: translateX(44vw) translateY(-5vh);
+    }
+    30% {
+        transform: translateX(calc(44vw + 5rem)) translateY(5vh);
+    }
+    40% {
+        transform: translateX(25vw);
+    }
+    80% {
+        transform: translateX(calc(35vw + 15rem)) translateY(-15vh);
+    }
+    85% {
+        transform: translateX(calc(44vw + 15rem)) translateY(15vh);
+    }
+    90% {
+        transform: translateX(44vw) translateY(-5vh);
+    }
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+}
+
