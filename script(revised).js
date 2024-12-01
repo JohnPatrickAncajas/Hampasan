@@ -249,7 +249,7 @@ function equip(weapon){
 
 function menu(){
     
-    const pageDisplay = document.getElementById('playerinfo');
+    const pageDisplay = document.getElementById('pageDisplay');
         pageDisplay.innerHTML = `
                             <div id="characterInfo">
                                     <img id="characterImage" src ="temp.png">
@@ -449,18 +449,23 @@ function swapPage(page) {
     const pageDisplay = document.getElementById('pageDisplay')
     if (page === 'menu'){
         pageDisplay.innerHTML = `
-        <div id ='playerinfo'></div>
-        <div id ='weaponry'></div>`
+        <h1>Welcome to Hampasan!</h1>
+        <div id='usernamePasswordBox'>
+           <button onclick = "getcurrentuser()">START</button>
+        </div>
+    
+        <div id = "equip"></div>
+        </div>`
         loadmenutools()
 
     } else if (page === 'fight') {
         pageDisplay.innerHTML = `
-            <div class="fightingBox">
-                <div id="PlayerBox">
+            <div class="fightingDiv">
+                <div class="fightBox" id="PlayerBox">
                     <p>Character</p>
                 </div>
                 
-                <div id="MobBox">
+                <div class="fightBox" id="MobBox">
                     <p>Hahampasin</p>   
                 </div>
             </div>
@@ -470,8 +475,7 @@ function swapPage(page) {
         battle()
     } else if (page === 'gacha') {
         pageDisplay.innerHTML = `
-        <h1>Gacha</h1>
-        <p>Lagay mo dito yung gacha mo</p>
+        <h1>Weapon Gacha</h1>
         <button onclick = "gacha()">ROLL</button>
         <div id = "currency"></div>
         <div id = "result"></div>
