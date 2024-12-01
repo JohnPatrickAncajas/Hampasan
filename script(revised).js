@@ -249,26 +249,29 @@ function menu(){
     
     const pageDisplay = document.getElementById('pageDisplay');
         pageDisplay.innerHTML = `
-                            <div id="characterInfo">
-                                    <img id="characterImage" src ="temp.png">
-                                    <p>Username: ${current_user.name}</p>
-                                    <p>Weapon: ${current_user.equipped.name}</p>
-                            </div>
-                            <div id="weaponMovesInfo">
-                                    <h2>${current_user.equipped.name} Moves</h2>
-                                    <h3>${current_user.equipped.moveset[0].name}</h3>
-                                    <p>${current_user.equipped.moveset[0].description}</p>
-                                    <h3>${current_user.equipped.moveset[1].name}</h3>
-                                    <p>${current_user.equipped.moveset[1].description}</p>
-                                    <h3>${current_user.equipped.moveset[2].name}</h3>
-                                    <p>${current_user.equipped.moveset[2].description}</p>
-                            </div>
-                            <div id="weaponryInfo">
-                                    <div id="username">${current_user.name}'s Weapons</div>
-                                    <hr>
-                                    <div id="weaponry"></div>
-                            </div>
-                            `
+                            <div id="mainInfoDiv">     
+                                <div id="characterInfo">
+                                        <img id="characterImage" src ="temp.png">
+                                        <p>Username: ${current_user.name}</p>
+                                        <p>Weapon: ${current_user.equipped.name}</p>
+                                </div>
+                                <div id="weaponMovesAndWeaponryInfo">
+                                    <div id="weaponMovesInfo">
+                                        <h2>${current_user.equipped.name} Moves</h2>
+                                        <h3>${current_user.equipped.moveset[0].name}</h3>
+                                        <p>${current_user.equipped.moveset[0].description}</p>
+                                        <h3>${current_user.equipped.moveset[1].name}</h3>
+                                        <p>${current_user.equipped.moveset[1].description}</p>
+                                        <h3>${current_user.equipped.moveset[2].name}</h3>
+                                        <p>${current_user.equipped.moveset[2].description}</p>
+                                    </div>
+                                    <div id="weaponryInfo">
+                                            <div id="username">${current_user.name}'s Weapons</div>
+                                            <hr>
+                                            <div id="weaponry"></div>
+                                    </div>
+                                </div>
+                            </div>`
         
         const changeweapon = document.getElementById('weaponry')
         changeweapon.addEventListener('click', function(){
