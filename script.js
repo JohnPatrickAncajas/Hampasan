@@ -29,26 +29,27 @@ class Weapon {
 }
 
 class Moveset {
-    constructor(name, damage, png, description) {
+    constructor(name, damage, png, description,animationid) {
         this.name = name;
         this.damage = damage;
         this.sprite = png;
         this.description = description
+        this.animationid = animationid
     }
 }
 
 const mobes = [
   
     [
-        new Moveset("Poison Dart", 40,".png"),
-        new Moveset("Robbery", 30, ".png"),
-        new Moveset("Lashout", 50, ".png")
+        new Moveset("Poison Dart", 40,".png","PoisondartAnimation"),
+        new Moveset("Robbery", 30, ".png","RobberyAnimation"),
+        new Moveset("Lashout", 50, ".png","LashoutAnimation")
     ],
 
     [
-        new Moveset("Ink Cloud", 100,".png"),
-        new Moveset("Tentacle Grasp", 120, ".png"),
-        new Moveset("Eldritch Horror", 500, ".png")
+        new Moveset("Ink Cloud", 100,".png","InkcloudAnimation"),
+        new Moveset("Tentacle Grasp", 120, ".png","TentacleGraspAnimation"),
+        new Moveset("Eldritch Horror", 500, ".png","EldritchHorrorAnimation")
     ],
     
 ]
